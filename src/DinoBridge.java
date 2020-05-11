@@ -48,10 +48,18 @@ public class DinoBridge extends BasicGame {
 	private void buildNewBridgePart(GameContainer container) {
 		Input input = container.getInput();
 		if(input.isKeyPressed(Input.KEY_W)) {
-			float newXPosition = initialBridge.get(initialBridge.size() - 1).x;
-			float newYPosition = initialBridge.get(initialBridge.size() - 1).y - bridgeHeight;
+			float newXPosition = getXPositionOfLastBridgePart();
+			float newYPosition = getYPositionOfLastBridgePart() - bridgeHeight;
 			initialBridge.add(new BridgePart(newXPosition, newYPosition, new Rectangle(100, 100, bridgeWidth, bridgeHeight)));
 		};
+	}
+
+	private float getYPositionOfLastBridgePart() {
+		return initialBridge.get(initialBridge.size() - 1).y;
+	}
+
+	private float getXPositionOfLastBridgePart() {
+		return initialBridge.get(initialBridge.size() - 1).x;
 	}
 	
 	private void initDino(GameContainer container) {
