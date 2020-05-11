@@ -3,6 +3,9 @@ import org.newdawn.slick.geom.*;
 
 public class DinoBridge extends BasicGame {
 
+	private Dino dino;
+	private float dinoRadius = 10f;
+	
 	public DinoBridge() {
 		super("DinoBridge");
 	}
@@ -14,17 +17,19 @@ public class DinoBridge extends BasicGame {
 	}
 	@Override
 	public void init(GameContainer container) throws SlickException {
-		// TODO Auto-generated method stub
+		float xDinoPosition = container.getWidth() / 2 - dinoRadius;
+		float yDinoPosition = container.getHeight() - 20 - dinoRadius * 2;
+		dino = new Dino(xDinoPosition, yDinoPosition, new Circle(100, 100, dinoRadius));
 	}
 	
 	@Override
 	public void render(GameContainer container, Graphics g) throws SlickException {
-		// TODO Auto-generated method stub
+		dino.draw(g);
 	}
 
 	
 	@Override
 	public void update(GameContainer container, int delta) throws SlickException {
-		// TODO Auto-generated method stub
+		dino.update(delta);
 	}
 }
