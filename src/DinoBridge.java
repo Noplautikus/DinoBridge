@@ -23,17 +23,8 @@ public class DinoBridge extends BasicGame {
 	}
 	@Override
 	public void init(GameContainer container) throws SlickException {
-		float xBridgePosition = container.getWidth() / 2 - bridgeWidth / 2;
-		float yBridgePosition = container.getHeight() - bridgeHeight;
-		
-		for(int i = 0; i < 10; i++) {
-			initialBridge.add(new BridgePart(xBridgePosition, yBridgePosition, new Rectangle(100, 100, bridgeWidth, bridgeHeight)));
-			yBridgePosition -= 100;
-		}
-		
-		float xDinoPosition = container.getWidth() / 2 - dinoRadius;
-		float yDinoPosition = container.getHeight() / 2 - dinoRadius;
-		dino = new Dino(xDinoPosition, yDinoPosition, new Circle(100, 100, dinoRadius));
+		initBridge(container);
+		initDino(container);
 	}
 	
 	@Override
@@ -51,5 +42,31 @@ public class DinoBridge extends BasicGame {
 			bridgePart.update(delta);
 		}
 		dino.update(delta);
+		buildNewBridgePart(container);
+	}
+
+	private void buildNewBridgePart(GameContainer container) {
+		Input input = container.getInput();
+		if(input.isKeyPressed(Input.KEY_W)) {
+			float newXPosition = initialBridge.get(initialBridge.size() - 1).x;
+			float newYPosition = initialBridge.get(initialBridge.size() - 1).y - bridgeHeight;
+			initialBridge.add(new BridgePart(newXPosition, newYPosition, new Rectangle(100, 100, bridgeWidth, bridgeHeight)));
+		};
+	}
+	
+	private void initDino(GameContainer container) {
+		float xDinoPosition = container.getWidth() / 2 - dinoRadius;
+		float yDinoPosition = container.getHeight() / 2 - dinoRadius;
+		dino = new Dino(xDinoPosition, yDinoPosition, new Circle(100, 100, dinoRadius));
+	}
+
+	private void initBridge(GameContainer container) {
+		float xBridgePosition = container.getWidth() / 2 - bridgeWidth / 2;
+		float yBridgePosition = container.getHeight() - bridgeHeight;
+		
+		for(int i = 0; i < 10; i++) {
+			initialBridge.add(new BridgePart(xBridgePosition, yBridgePosition, new Rectangle(100, 100, bridgeWidth, bridgeHeight)));
+			yBridgePosition -= 100;
+		}
 	}
 }
