@@ -16,8 +16,17 @@ public class BridgePart extends GameObject {
 	}
 
 	@Override
-	void update(int delta) {
-		y = y + 0.2f;
+	void update(int delta, GameDirection direction) {
+		if (direction == GameDirection.LEFT) {
+			x += 0.2f;
+		}
+		if(direction == GameDirection.AHEAD) {
+			y += 0.2f;
+		}
+		if(direction == GameDirection.RIGHT) {
+			x -= 0.2f;
+		}
+		
 	}
 
 }

@@ -4,6 +4,8 @@ import org.newdawn.slick.*;
 import org.newdawn.slick.geom.*;
 
 public class DinoBridge extends BasicGame {
+	
+	private GameDirection gameDirection = GameDirection.AHEAD;
 
 	private Dino dino;
 	private float dinoRadius = 10f;
@@ -39,9 +41,9 @@ public class DinoBridge extends BasicGame {
 	@Override
 	public void update(GameContainer container, int delta) throws SlickException {
 		for(BridgePart bridgePart : initialBridge) {
-			bridgePart.update(delta);
+			bridgePart.update(delta, gameDirection);
 		}
-		dino.update(delta);
+		dino.update(delta, gameDirection);
 		buildNewBridgePart(container);
 	}
 

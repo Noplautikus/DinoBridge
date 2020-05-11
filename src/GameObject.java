@@ -13,5 +13,5 @@ public abstract class GameObject {
 	}
 	
 	abstract void draw(Graphics g); 
-	abstract void update(int delta); 
+	abstract void update(int delta, GameDirection direction); 
 }

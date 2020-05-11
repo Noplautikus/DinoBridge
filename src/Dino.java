@@ -16,7 +16,7 @@ public class Dino extends GameObject{
 	}
 
 	@Override
-	void update(int delta) {
+	void update(int delta, GameDirection direction) {
 	}
 
 }
