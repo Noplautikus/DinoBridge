@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Random;
 
 import org.newdawn.slick.*;
 import org.newdawn.slick.geom.*;
@@ -6,6 +7,7 @@ import org.newdawn.slick.geom.*;
 public class DinoBridge extends BasicGame {
 	
 	private GameDirection gameDirection = GameDirection.AHEAD;
+	long timeStamp;
 
 	private Dino dino;
 	private float dinoRadius = 10f;
@@ -25,6 +27,7 @@ public class DinoBridge extends BasicGame {
 	}
 	@Override
 	public void init(GameContainer container) throws SlickException {
+		timeStamp = container.getTime();
 		initBridge(container);
 		initDino(container);
 	}
@@ -44,7 +47,30 @@ public class DinoBridge extends BasicGame {
 			bridgePart.update(delta, gameDirection);
 		}
 		dino.update(delta, gameDirection);
+		
 		buildNewBridgePart(container);
+		
+		long currentTime = container.getTime();
+		
+		getNewGameDirection(currentTime);
+	}
+
+	private void getNewGameDirection(long currentTime) { // muss noch verbessert werden aktuell funktionieren die links und rechts nicht richtig weil sie nur aufgerufen werden können wenn die vorherige richtung oben war, am besten wird wenn die aktuelle richung linkt ist sowohl der befehl oben als auch rechts genutzt um die richtung wieder nach oben zu bewegen.
+		if (currentTime - timeStamp > 1000) {
+			int pick = new Random().nextInt(GameDirection.values().length);
+			
+			if(pick == 0 && gameDirection == GameDirection.AHEAD) {
+				gameDirection = GameDirection.LEFT;
+			}
+			if(pick == 1 && gameDirection != GameDirection.AHEAD) {
+				gameDirection = GameDirection.AHEAD;
+			}
+			if(pick == 2 && gameDirection == GameDirection.AHEAD) {
+				gameDirection = GameDirection.RIGHT;
+			}
+			
+			timeStamp = currentTime;
+		}
 	}
 
 	private void buildNewBridgePart(GameContainer container) {
@@ -74,7 +100,7 @@ public class DinoBridge extends BasicGame {
 		float xBridgePosition = container.getWidth() / 2 - bridgeWidth / 2;
 		float yBridgePosition = container.getHeight() - bridgeHeight;
 		
-		for(int i = 0; i < 10; i++) {
+		for(int i = 0; i < 50; i++) {
 			initialBridge.add(new BridgePart(xBridgePosition, yBridgePosition, new Rectangle(100, 100, bridgeWidth, bridgeHeight)));
 			yBridgePosition -= 100;
 		}

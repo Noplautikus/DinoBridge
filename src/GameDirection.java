@@ -1,5 +1,5 @@
 
-enum GameDirection {
+public enum GameDirection {
 	LEFT,
 	AHEAD,
 	RIGHT
