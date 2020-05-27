@@ -52,7 +52,16 @@ public class DinoBridge extends BasicGame {
 		
 		long currentTime = container.getTime();
 		
-		getNewGameDirection(currentTime);
+		//getNewGameDirection(currentTime);
+		System.out.println(initialBridge.size());
+		
+		for (int i = 0; i< initialBridge.size(); i++)
+		{
+			if (initialBridge.size() > 20)
+			{
+				initialBridge.remove(i);
+			}
+		}
 	}
 
 	private void getNewGameDirection(long currentTime) { // muss noch verbessert werden aktuell funktionieren die links und rechts nicht richtig weil sie nur aufgerufen werden können wenn die vorherige richtung oben war, am besten wird wenn die aktuelle richung linkt ist sowohl der befehl oben als auch rechts genutzt um die richtung wieder nach oben zu bewegen.
@@ -100,7 +109,7 @@ public class DinoBridge extends BasicGame {
 		float xBridgePosition = container.getWidth() / 2 - bridgeWidth / 2;
 		float yBridgePosition = container.getHeight() - bridgeHeight;
 		
-		for(int i = 0; i < 50; i++) {
+		for(int i = 0; i < 10; i++) {
 			initialBridge.add(new BridgePart(xBridgePosition, yBridgePosition, new Rectangle(100, 100, bridgeWidth, bridgeHeight)));
 			yBridgePosition -= 100;
 		}
